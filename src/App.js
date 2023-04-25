@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Menu from './components/Menu';
+import Tabla from './components/Tabla';
+import Modal from './components/Modal';
+import styled from 'styled-components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  const [tableSelected, setTableSelected] = useState('pokemon');
+  const [lastID, setLastID] = useState(10);
+  const [modalInformation, setModalInformation] = useState();
+
+  return ( 
+    <AppContainer>
+      <Menu 
+        tableSelected={tableSelected} 
+        setTableSelected={setTableSelected}
+        setLastID={setLastID}
+      />
+      <Tabla 
+        tableSelected={tableSelected} 
+        setModalInformation={setModalInformation} 
+        lastID={lastID} 
+        setLastID={setLastID}  
+      />
+      {modalInformation && <Modal modalInformation={modalInformation} setModalInformation={setModalInformation}/>}
+    </AppContainer>
+   );
 }
 
+const AppContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+`;
+ 
 export default App;
